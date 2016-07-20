@@ -29,7 +29,22 @@ With Chrome or the p5 editor, you can open up the developer tools and turn on "S
 
 ### Manual Profiling
 
-**TODO: section on using performance.now/millis**
+To find out how long a piece of code takes to run, you want to know the what time it is when the code starts running and what time it is right after the code ends. In p5, you can get the current time in milliseconds using [`millis()`](http://p5js.org/reference/#/p5/millis). (Under the hood, this function just returns the result of a native JS method: [`performance.now()`](https://developer.mozilla.org/en-US/docs/Web/API/Performance/now)\.\)
+
+To time a particular piece of code using `millis()`:
+
+```js
+var start = millis();
+
+// Do the stuff that you want to time
+random(0, 100);
+
+var end = millis();
+var elapsed = end - start;
+console.log("This took: " + elapsed + "ms.")
+```
+
+**TODO: explain why you might want to run something multiple times when timing**
 
 ### Automated Profiling
 
