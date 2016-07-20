@@ -19,9 +19,17 @@ The first step in speeding up code is usually to [profile](https://en.wikipedia.
 
 One general measure of your program's speed is the number of frames per second (FPS) is can run. You generally want to aim for a consistent 30 - 60 FPS if your code involves interaction or animation.
 
-You can see your FPS easily in one of two ways:
+You can see your current FPS easily in one of two ways.
 
-In p5, you can call `frameRate()` without any parameters to get the current FPS. Then you can dump that to the console or draw it to the screen.
+In p5, you can call `frameRate()` without any parameters to get the current FPS. Then you can dump that to the console or draw it to the screen:
+
+```js
+// Draw FPS (rounded to 2 decimal places) at the bottom left of the screen
+var fps = frameRate();
+fill(255);
+stroke(0);
+text("FPS: " + fps.toFixed(2), 10, height - 10);
+```
 
 With Chrome or the p5 editor, you can open up the developer tools and turn on "Show FPS meter" (**describe how to do this, use this [link](https://developers.google.com/web/tools/chrome-devtools/settings?hl=en#drawer-tabs)**). You'll then see a gray overlay in the browser with an FPS graph. This is nice because it allows you to see how FPS changes over time:
 
