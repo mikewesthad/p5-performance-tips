@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>p5 Performance Test</title>
+    <style>
+      html, body, canvas {
+        padding: 0; 
+        margin: 0; 
+      }
+    </style>
+  </head>
+  <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.2/p5.js"></script>
+    <script>
+
+      function setup() {
+        createCanvas(800, 600);
+      }
+
+      function draw() {
+        var seconds = millis() / 1000;
+        var radius = map(sin(3 * seconds), -1, 1, 100, 500);
+
+        background("#191716");
+        fill("#E6AF2E");
+        ellipse(width / 2, height / 2, radius, radius);
+      }
+
+      function mousePressed() {
+        for (var i = 0; i < 4000; i += 1) {
+          ellipse(random(0, width), random(0, height), 20, 20);
+        }
+      }
+
+    </script>
+  </body>
+</html>
