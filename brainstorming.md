@@ -18,6 +18,7 @@ General p5 Advice
 -	Prefer native JS functions in intensive code
 -	Sometimes, using the underlying canvas context can be faster
 -	Do as much as you can in setup
+-	Check for slowdowns specifically in `draw` or event handlers (e.g. `mousePressed`\)
 
 Profiling
 ---------
@@ -25,6 +26,7 @@ Profiling
 -	Manual timing via [Performance.now()](https://developer.mozilla.org/en-US/docs/Web/API/Performance/now)
 -	Browser dev tools
 -	Editor dev tools?
+-	View FPS in the browser
 
 Miscellaneous Thoughts
 ----------------------
