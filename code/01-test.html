@@ -11,7 +11,7 @@
     </style>
   </head>
   <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.2/p5.js"></script>
+    <script src="p5/p5.js"></script>
     <script>
 
       function setup() {
@@ -26,6 +26,9 @@
         fill("#E6AF2E");
         ellipse(width / 2, height / 2, radius, radius);
 
+
+        // Draw FPS (rounded to 2 decimal places) at the bottom left of the 
+        // screen
         var fps = frameRate();
         fill(255);
         stroke(0);
