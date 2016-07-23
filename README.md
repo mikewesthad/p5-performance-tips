@@ -122,8 +122,8 @@ The speed boost you will get depends on the specific p5 methods you are using. I
     	p5.random took:     	283.88ms
     	Math.random took: 		190.01ms
 
-    	p5.sin took:        481.14ms
-    	Math.sin took:      338.33ms
+    	p5.sin took:            481.14ms
+    	Math.sin took:          338.33ms
 
     	p5.min took:        	244.60ms
     	Math.min took:    		100.97ms
