@@ -24,7 +24,7 @@ When it comes to performance, it's tempting to try to squeeze out as much speed 
 
 ## Identifying Slow Code: Profiling
 
-The first step in speeding up code is usually to [profile](https://en.wikipedia.org/wiki/Profiling_(computer_programming)) it - to try to get an idea of how long each piece of the code takes to run.
+The first step in speeding up code is usually to [profile](https://en.wikipedia.org/wiki/Profiling_%28computer_programming%29) it - to try to get an idea of how long each piece of the code takes to run.
 
 ### Frames Per Second (FPS)
 
@@ -42,9 +42,7 @@ stroke(0);
 text("FPS: " + fps.toFixed(2), 10, height - 10);
 ```
 
-With Chrome or the p5 editor, you can open up the developer tools and turn on the "Show FPS meter" options to get a graph of FPS. This is nice because it allows you to see how the FPS changes over time:
-
-![Chrome FPS Meter](images/chrome-fps.jpg)
+With Chrome or the p5 editor, you can open up the developer tools and turn on the "Show FPS meter" options to get a graph of FPS. This is nice because it allows you to see how the FPS changes over time.
 
 In Chrome, open the developer tools (Windows hotkey: `Ctrl + Shift + I` or `F12`, Mac hotkey:  `Cmd + Opt + I`) and then follow these instructions:
 
@@ -123,7 +121,7 @@ If you know where your performance bottleneck is in your code, then you can spee
 
 Many of the p5 methods come with an overhead. For example: `sin(...)` needs to check whether p5 is in degree mode or radian mode before it can calculate the sin; `random(...)` needs to check whether you have passed in a max and/or min before calculating a random value. In both of these cases, you can just use `Math.random(...)` or `Math.sin(...)`.
 
-The speed boost you will get depends on the specific p5 methods you are using. In v0.5.3, many methods have been optimized (e.g. abs, sqrt, log), but you can still see a performance boost for using Math.random, Math.sin, Math.min over their p5 counterparts. This is espeically true for v0.6.0 of the p5 editor. See the [native vs p5 performance test](code/native-vs-p5/):
+The speed boost you will get depends on the specific p5 methods you are using. In v0.5.3, many methods have been optimized (e.g. `abs`, `sqrt`, `log`), but you can still see a performance boost for using `Math.random`, `Math.sin`, `Math.min` over their p5 counterparts. This is especially true for v0.6.0 of the p5 editor. See the [native vs p5 performance test](code/native-vs-p5/):
 
     Chrome, running methods 10000000x times:
 
