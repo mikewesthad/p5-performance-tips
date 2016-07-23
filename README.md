@@ -4,17 +4,17 @@ Note: this is a work-in-progress wiki for [p5.js](https://github.com/processing/
 
 **Add some intro here**
 
-<!-- TOC depthFrom:2 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+<!-- TOC depthFrom:2 depthTo:6 withLinks:1 updateOnSave:1 orderedList:1 -->
 
--   [A Word of Caution](#a-word-of-caution)
--   [Profiling](#profiling)
-    -   [Frames Per Second (FPS)](#frames-per-second-fps)
-    -   [Manual Profiling](#manual-profiling)
-    -   [Automated Profiling](#automated-profiling)
--   [General p5 Tips](#general-p5-tips)
-    -   [Disable the Friendly Error System](#disable-the-friendly-error-system)
-    -   [Switch Platforms](#switch-platforms)
-    -   [Use Native JS in Bottlenecks](#use-native-js-in-bottlenecks)
+1. [A Word of Caution](#a-word-of-caution)
+2. [Identifying Slow Code: Profiling](#identifying-slow-code-profiling)
+	1. [Frames Per Second (FPS)](#frames-per-second-fps)
+	2. [Manual Profiling](#manual-profiling)
+	3. [Automated Profiling](#automated-profiling)
+3. [General p5 Tips](#general-p5-tips)
+	1. [Disable the Friendly Error System](#disable-the-friendly-error-system)
+	2. [Switch Platforms](#switch-platforms)
+	3. [Use Native JS in Bottlenecks](#use-native-js-in-bottlenecks)
 
 <!-- /TOC -->
 
@@ -22,7 +22,7 @@ Note: this is a work-in-progress wiki for [p5.js](https://github.com/processing/
 
 When it comes to performance, it's tempting to try to squeeze out as much speed as you can right from the get-go. Writing code is a balancing act between trying to write something that is easy to read & maintain and something that gets the job done. Performance optimizations often come with some sacrifices, so in general, you should only worry about optimizing when you know there is a speed problem.
 
-## Profiling
+## Identifying Slow Code: Profiling
 
 The first step in speeding up code is usually to [profile](https://en.wikipedia.org/wiki/Profiling_(computer_programming)) it - to try to get an idea of how long each piece of the code takes to run.
 
@@ -42,9 +42,17 @@ stroke(0);
 text("FPS: " + fps.toFixed(2), 10, height - 10);
 ```
 
-With Chrome or the p5 editor, you can open up the developer tools and turn on "Show FPS meter" (**describe how to do this, use this [link](https://developers.google.com/web/tools/chrome-devtools/settings?hl=en#drawer-tabs)**). You'll then see a gray overlay in the browser with an FPS graph. This is nice because it allows you to see how FPS changes over time:
+With Chrome or the p5 editor, you can open up the developer tools and turn on the "Show FPS meter" options to get a graph of FPS. This is nice because it allows you to see how the FPS changes over time:
 
 ![Chrome FPS Meter](images/chrome-fps.jpg)
+
+In Chrome, open the developer tools (Windows hotkey: `Ctrl + Shift + I` or `F12`, Mac hotkey:  `Cmd + Opt + I`) and then follow these instructions:
+
+![Enabling FPS Meter in Chrome](images/chrome-show-fps.gif)
+
+In the p5 Editor:
+
+![Enabling FPS Meter in p5 Editor](images/editor-show-fps.gif)
 
 ### Manual Profiling
 
