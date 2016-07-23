@@ -87,7 +87,7 @@ With both of these tools, it will make your life easier if you use non-minified 
 
 ### Disable the Friendly Error System
 
-When you use the non-minified p5.js file (as opposed to p5.min.js), there is a friendly error system that will warn you when you try to override a p5 method, e.g. if you try to do `random = 5;` or `max = 3;`. This error checking system can significantly slow down your code (up to ~10x in some cases). (**Link to test**)
+When you use the non-minified p5.js file (as opposed to p5.min.js), there is a friendly error system that will warn you when you try to override a p5 method, e.g. if you try to do `random = 5;` or `max = 3;`. This error checking system can significantly slow down your code (up to ~10x in some cases). See the [friendly error performance test](code/friendly-error-system/).
 
 If you are running p5.js version 0.5.3 or greater, you can disable this with one line of code at the top of your sketch:
 
