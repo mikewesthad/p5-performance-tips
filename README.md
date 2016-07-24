@@ -162,11 +162,3 @@ The speed boost you will get depends on the specific p5 methods you are using. I
 
     	p5.min took:        	3046.78ms
     	Math.min took:    		289.42ms
-
-ms
-.min took:    		289.42ms
-
-ms
-.min took:    		289.42ms
-
-ms
