@@ -6,15 +6,15 @@ Note: this is a work-in-progress wiki for [p5.js](https://github.com/processing/
 
 <!-- TOC depthFrom:2 depthTo:6 withLinks:1 updateOnSave:1 orderedList:1 -->
 
-1. [A Word of Caution](#a-word-of-caution)
-2. [Identifying Slow Code: Profiling](#identifying-slow-code-profiling)
-	1. [Frames Per Second (FPS)](#frames-per-second-fps)
-	2. [Manual Profiling](#manual-profiling)
-	3. [Automated Profiling](#automated-profiling)
-3. [General p5 Tips](#general-p5-tips)
-	1. [Disable the Friendly Error System](#disable-the-friendly-error-system)
-	2. [Switch Platforms](#switch-platforms)
-	3. [Use Native JS in Bottlenecks](#use-native-js-in-bottlenecks)
+1.  [A Word of Caution](#a-word-of-caution)
+2.  [Identifying Slow Code: Profiling](#identifying-slow-code-profiling)
+    1.  [Frames Per Second (FPS)](#frames-per-second-fps)
+    2.  [Manual Profiling](#manual-profiling)
+    3.  [Automated Profiling](#automated-profiling)
+3.  [General p5 Tips](#general-p5-tips)
+    1.  [Disable the Friendly Error System](#disable-the-friendly-error-system)
+    2.  [Switch Platforms](#switch-platforms)
+    3.  [Use Native JS in Bottlenecks](#use-native-js-in-bottlenecks)
 
 <!-- /TOC -->
 
@@ -73,15 +73,33 @@ console.log("This took: " + elapsed + "ms.")
 
 ### Automated Profiling
 
-Again, developer tools in Chrome and the p5 editor to the rescue.
+Again, the developer tools in Chrome and the p5 editor come to the rescue with some automated tools. With the [CPU profiler](https://developers.google.com/web/tools/chrome-devtools/profile/rendering-tools/js-execution), you can see how much time is spent in each function within your code. When you are dealing with a complicated project and you are not sure where to start optimizing, this is a helpful starting point.
 
-With both of these tools, it will make your life easier if you use non-minified code (i.e. use "p5.js" over "p5.min.js").
+When you want to profile your code, open the developer tools (hamburger icon in the p5 editor). Go to the "Profiles" tab, select "Collect JavaScript CPU Profile" and hit start. This will start timing your code. When you've recorded a large  enough sample, stop the recording and take a look at the results:
 
-**TODO:** [Timeline panel](https://developers.google.com/web/tools/chrome-devtools/profile/evaluate-performance/timeline-tool#profile-js)
+![Chrome CPU Profiler](images/chrome-cpu-profile.jpg)
 
-**TODO:** [CPU profiler](https://developers.google.com/web/tools/chrome-devtools/profile/rendering-tools/js-execution?hl=en)
+It's helpful to look at the CPU profiler results for some real code. The recording for this section is a p5 sketch that gets an image from the webcam, sorts the pixels by hue and then draws them to the screen (see [code/cpu-profiler-demo](code/cpu-profiler-demo/)). There are  four main functions:
 
-![Chrome CPU Profiler](images/chrome-cpu-profiler.png)
+-   `samplePixels` - gets a set of pixels from the camera
+-   `sortPixels` - sorts the sampled pixels
+-   `sortHue` - compares the hue of two colors in order to decide how they should be ordered
+-   `drawPixels` - draw the pixels to the screen as colored rectangles
+
+The default view of the recording is a table of functions with their associated timing. It gives you the "self" and "total" times for all the functions in your code. Self time is the amount of time spent on the statements in a function _excluding_ calls to other functions. Total time is the amount of time that it took to run that function _and_ any functions that it calls.
+
+From the total times, we can see that roughly equal amounts of time were spent in `samplePixels`, `drawPixels` and `sortPixels`, so any of them are candidates for trying optimizations. Here, the easiest optimization with the biggest gains would simply be to reduce the number of pixels sampled from the camera frame.
+
+If you switch the view of the recording from "Heavy (Bottom Up)" to "Chart," you can get a better sense of the breakdown and interactively explore the recording:
+
+![Chrome CPU Profiler](images/chrome-cpu-flame.gif)
+
+Given that the CPU profiler is simply going to show you a table that has function names, it is important for the functions in your code to actually have names. So you should:
+
+-   Use "p5.js" over "p5.min.js", so that p5 functions have non-minified names.
+-   Avoid using [anonymous functions](https://en.wikibooks.org/wiki/JavaScript/Anonymous_functions) in your code.
+
+See the [CPU profiler documentation](https://developers.google.com/web/tools/chrome-devtools/profile/rendering-tools/js-execution) for more details.
 
 ## General p5 Tips
 
@@ -144,3 +162,11 @@ The speed boost you will get depends on the specific p5 methods you are using. I
 
     	p5.min took:        	3046.78ms
     	Math.min took:    		289.42ms
+
+ms
+.min took:    		289.42ms
+
+ms
+.min took:    		289.42ms
+
+ms
