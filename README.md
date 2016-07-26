@@ -15,7 +15,9 @@ Note: this is a work-in-progress wiki for [p5.js](https://github.com/processing/
 	1. [Disable the Friendly Error System](#disable-the-friendly-error-system)
 	2. [Switch Platforms](#switch-platforms)
 	3. [Use Native JS in Bottlenecks](#use-native-js-in-bottlenecks)
-	4. [Math Shortcuts](#math-shortcuts)
+	4. [Image Processing](#image-processing)
+	5. [Caching](#caching)
+	6. [Math Shortcuts](#math-shortcuts)
 
 <!-- /TOC -->
 
@@ -23,7 +25,7 @@ Note: this is a work-in-progress wiki for [p5.js](https://github.com/processing/
 
 When it comes to performance, it's tempting to try to squeeze out as much speed as you can right from the get-go. Writing code is a balancing act between trying to write something that is easy to read & maintain and something that gets the job done. Performance optimizations often come with some sacrifices, so in general, you should only worry about optimizing when you know there is a speed problem.
 
-Along with that, it's important to keep in mind a general mantra of "optimize the algorithm, not the code." Sometimes, you will get nice gains from micro-optimizing a line of code or two. But generally speaking, the big gains you get tend to come from changing your approach. E.g. if you have code that looks through every single pixel in an image, you will certainly speed up your code if you decide that you can instead just look through every other pixel.
+Along with that, it's important to keep in mind a general mantra of "optimize the algorithm, not the code." Sometimes, you will get nice gains from micro-optimizing a line of code or two. But generally speaking, the big gains you get tend to come from changing your approach. E.g. if you have code that loops through every single pixel in an image, you will certainly speed up your code if you decide that you can instead just look through every other pixel.
 
 ## Identifying Slow Code: Profiling
 
@@ -35,7 +37,7 @@ One general measure of your program's speed is the number of frames per second (
 
 You can see your current FPS easily in one of two ways.
 
-In p5, you can call `frameRate()` without any parameters to get the current FPS. Then you can dump that to the console or draw it to the screen:
+In p5, you can call [`frameRate()`](http://p5js.org/reference/#/p5/frameRate) without any parameters to get the current FPS. Then you can dump that to the console or draw it to the screen:
 
 ```javascript
 // Draw FPS (rounded to 2 decimal places) at the bottom left of the screen
@@ -72,7 +74,7 @@ var elapsed = end - start;
 console.log("This took: " + elapsed + "ms.")
 ```
 
-**TODO: explain why you might want to run something multiple times when timing**
+Usually, you will want to run the code you are trying to profile many times and then find the average time that it took to run. See any of the performance tests in [code/](code/) for examples.
 
 ### Automated Profiling
 
@@ -152,8 +154,8 @@ The speed boost you will get depends on the specific p5 methods you are using. I
     	p5.sin took:            481.14ms
     	Math.sin took:          338.33ms
 
-    	p5.min took:        	244.60ms
-    	Math.min took:    		100.97ms
+    	p5.min took:        	781.41ms
+    	Math.min took:    		538.15ms
 
     p5 Editor, running methods 10000000x times:
 
@@ -163,8 +165,16 @@ The speed boost you will get depends on the specific p5 methods you are using. I
     	p5.sin took:        	2337.90ms
     	Math.sin took:    		265.94ms
 
-    	p5.min took:        	3046.78ms
-    	Math.min took:    		289.42ms
+    	p5.min took:        	8335.63ms
+    	Math.min took:    		5308.00ms
+
+### Image Processing
+
+**TODO: Section on sampling or resizing images**
+
+### Caching
+
+**TODO: Section on storing DOM lookups and precomputing as much as possible**
 
 ### Math Shortcuts
 
