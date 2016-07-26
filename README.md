@@ -2,25 +2,28 @@
 
 Note: this is a work-in-progress wiki for [p5.js](https://github.com/processing/p5.js) on performance.
 
-**Add some intro here**
+**TODO: Add some intro here**
 
 <!-- TOC depthFrom:2 depthTo:6 withLinks:1 updateOnSave:1 orderedList:1 -->
 
-1.  [A Word of Caution](#a-word-of-caution)
-2.  [Identifying Slow Code: Profiling](#identifying-slow-code-profiling)
-    1.  [Frames Per Second (FPS)](#frames-per-second-fps)
-    2.  [Manual Profiling](#manual-profiling)
-    3.  [Automated Profiling](#automated-profiling)
-3.  [General p5 Tips](#general-p5-tips)
-    1.  [Disable the Friendly Error System](#disable-the-friendly-error-system)
-    2.  [Switch Platforms](#switch-platforms)
-    3.  [Use Native JS in Bottlenecks](#use-native-js-in-bottlenecks)
+1. [Words of Caution!](#words-of-caution)
+2. [Identifying Slow Code: Profiling](#identifying-slow-code-profiling)
+	1. [Frames Per Second (FPS)](#frames-per-second-fps)
+	2. [Manual Profiling](#manual-profiling)
+	3. [Automated Profiling](#automated-profiling)
+3. [p5 Performance Tips](#p5-performance-tips)
+	1. [Disable the Friendly Error System](#disable-the-friendly-error-system)
+	2. [Switch Platforms](#switch-platforms)
+	3. [Use Native JS in Bottlenecks](#use-native-js-in-bottlenecks)
+	4. [Math Shortcuts](#math-shortcuts)
 
 <!-- /TOC -->
 
-## A Word of Caution
+## Words of Caution!
 
 When it comes to performance, it's tempting to try to squeeze out as much speed as you can right from the get-go. Writing code is a balancing act between trying to write something that is easy to read & maintain and something that gets the job done. Performance optimizations often come with some sacrifices, so in general, you should only worry about optimizing when you know there is a speed problem.
+
+Along with that, it's important to keep in mind a general mantra of "optimize the algorithm, not the code." Sometimes, you will get nice gains from micro-optimizing a line of code or two. But generally speaking, the big gains you get tend to come from changing your approach. E.g. if you have code that looks through every single pixel in an image, you will certainly speed up your code if you decide that you can instead just look through every other pixel.
 
 ## Identifying Slow Code: Profiling
 
@@ -73,7 +76,7 @@ console.log("This took: " + elapsed + "ms.")
 
 ### Automated Profiling
 
-Again, the developer tools in Chrome and the p5 editor come to the rescue with some automated tools. With the [CPU profiler](https://developers.google.com/web/tools/chrome-devtools/profile/rendering-tools/js-execution), you can see how much time is spent in each function within your code. When you are dealing with a complicated project and you are not sure where to start optimizing, this is a helpful starting point.
+Again, the developer tools in Chrome and the p5 editor come to the rescue with some automated tools. With the [CPU profiler](https://developers.google.com/web/tools/chrome-devtools/profile/rendering-tools/js-execution), you can see how much time is spent in each function within your code _without_ adding any manual timing code. When you are dealing with a complicated project and you are not sure where to start optimizing, this is a helpful starting point.
 
 When you want to profile your code, open the developer tools (hamburger icon in the p5 editor). Go to the "Profiles" tab, select "Collect JavaScript CPU Profile" and hit start. This will start timing your code. When you've recorded a large  enough sample, stop the recording and take a look at the results:
 
@@ -88,7 +91,7 @@ It's helpful to look at the CPU profiler results for some real code. The recordi
 
 The default view of the recording is a table of functions with their associated timing. It gives you the "self" and "total" times for all the functions in your code. Self time is the amount of time spent on the statements in a function _excluding_ calls to other functions. Total time is the amount of time that it took to run that function _and_ any functions that it calls.
 
-From the total times, we can see that roughly equal amounts of time were spent in `samplePixels`, `drawPixels` and `sortPixels`, so any of them are candidates for trying optimizations. Here, the easiest optimization with the biggest gains would simply be to reduce the number of pixels sampled from the camera frame.
+From the total times, we can see that roughly equal amounts of time were spent in `samplePixels`, `drawPixels` and `sortPixels`, so any of them are candidates for trying optimizations. Here, the easiest optimization with the biggest gains would simply be to reduce the number of pixels sampled from the camera frame. That will speed up all three functions.
 
 If you switch the view of the recording from "Heavy (Bottom Up)" to "Chart," you can get a better sense of the breakdown and interactively explore the recording:
 
@@ -101,7 +104,7 @@ Given that the CPU profiler is simply going to show you a table that has functio
 
 See the [CPU profiler documentation](https://developers.google.com/web/tools/chrome-devtools/profile/rendering-tools/js-execution) for more details.
 
-## General p5 Tips
+## p5 Performance Tips
 
 ### Disable the Friendly Error System
 
