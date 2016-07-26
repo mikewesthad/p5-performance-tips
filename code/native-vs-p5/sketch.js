@@ -6,8 +6,8 @@
 //  p5 sin took:        481.14ms.
 //  Native sin took:    338.33ms.
 //  
-//  p5 min took:        244.60ms.
-//  Native min took:    100.97ms.
+//  p5 min took:        781.41ms.
+//  Native min took:    538.15ms.
 //  
 // Results in p5 Editor:
 // 
@@ -17,8 +17,8 @@
 //  p5 sin took:        2337.90ms.
 //  Native sin took:    265.94ms.
 //  
-//  p5 min took:        3046.78ms.
-//  Native min took:    289.42ms.
+//  p5 min took:        8335.63ms.
+//  Native min took:    5308.00ms.
 
 p5.disableFriendlyErrors = true;
 
@@ -65,7 +65,7 @@ function setup() {
   
   var start = millis();
   for (var i = 0; i < iterations; i++) {
-    min(30, 20, 100, 400);
+    min(random(0, 100), random(0, 100));
   }
   var elapsed = millis() - start;
   console.log("p5 min took: " + elapsed.toFixed(2) + "ms.")
@@ -73,7 +73,7 @@ function setup() {
 
   var start = millis();
   for (var i = 0; i < iterations; i++) {
-    Math.min(30, 20, 100, 400);
+    Math.min(random(0, 100), random(0, 100));
   }
   var elapsed = millis() - start;
   console.log("Native min took: " + elapsed.toFixed(2) + "ms.")
