@@ -162,3 +162,15 @@ The speed boost you will get depends on the specific p5 methods you are using. I
 
     	p5.min took:        	3046.78ms
     	Math.min took:    		289.42ms
+
+### Math Shortcuts
+
+-   When you need to compare distances between points or magnitudes of vectors, try using distance squared or magnitude squared ([p5.Vector.magSq](http://p5js.org/reference/#/p5.Vector/magSq)). See [code/distance-squared](code/distance-squared/) for a performance test.
+
+    ```js
+    function distSquared(x1, y1, x2, y2) {
+        var dx = x2 - x1;
+        var dy = y2 - y1;
+        return dx * dx + dy * dy;
+    }
+    ```
