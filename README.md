@@ -76,6 +76,8 @@ console.log("This took: " + elapsed + "ms.")
 
 Usually, you will want to run the code you are trying to profile many times and then find the average time that it took to run. See any of the performance tests in [code/](code/) for examples.
 
+Note: `console.log()` and `println()` will definitely slow down your code, so be sure to remove them from the final version of your project!
+
 ### Automated Profiling
 
 Again, the developer tools in Chrome and the p5 editor come to the rescue with some automated tools. With the [CPU profiler](https://developers.google.com/web/tools/chrome-devtools/profile/rendering-tools/js-execution), you can see how much time is spent in each function within your code _without_ adding any manual timing code. When you are dealing with a complicated project and you are not sure where to start optimizing, this is a helpful starting point.
