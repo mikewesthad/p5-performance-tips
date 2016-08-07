@@ -6,18 +6,18 @@ Note: this is a work-in-progress wiki for [p5.js](https://github.com/processing/
 
 <!-- TOC depthFrom:2 depthTo:6 withLinks:1 updateOnSave:1 orderedList:1 -->
 
-1. [Words of Caution!](#words-of-caution)
-2. [Identifying Slow Code: Profiling](#identifying-slow-code-profiling)
-	1. [Frames Per Second (FPS)](#frames-per-second-fps)
-	2. [Manual Profiling](#manual-profiling)
-	3. [Automated Profiling](#automated-profiling)
-3. [p5 Performance Tips](#p5-performance-tips)
-	1. [Disable the Friendly Error System](#disable-the-friendly-error-system)
-	2. [Switch Platforms](#switch-platforms)
-	3. [Use Native JS in Bottlenecks](#use-native-js-in-bottlenecks)
-	4. [Image Processing](#image-processing)
-	5. [Caching](#caching)
-	6. [Math Shortcuts](#math-shortcuts)
+1.  [Words of Caution!](#words-of-caution)
+2.  [Identifying Slow Code: Profiling](#identifying-slow-code-profiling)
+    1.  [Frames Per Second (FPS)](#frames-per-second-fps)
+    2.  [Manual Profiling](#manual-profiling)
+    3.  [Automated Profiling](#automated-profiling)
+3.  [p5 Performance Tips](#p5-performance-tips)
+    1.  [Disable the Friendly Error System](#disable-the-friendly-error-system)
+    2.  [Switch Platforms](#switch-platforms)
+    3.  [Use Native JS in Bottlenecks](#use-native-js-in-bottlenecks)
+    4.  [Image Processing](#image-processing)
+    5.  [Caching](#caching)
+    6.  [Math Shortcuts](#math-shortcuts)
 
 <!-- /TOC -->
 
@@ -176,9 +176,43 @@ The speed boost you will get depends on the specific p5 methods you are using. I
 
 ### Caching
 
-**TODO: Section on storing DOM lookups and precomputing as much as possible**
+### DOM Manipulation
 
-### Math Shortcuts
+The [Document Object Model](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction) (DOM) is the programming interface that gives us access to create, manipulate and remove HTML elements. There are some common DOM pitfalls that will really hurt your performance.  
+
+#### Batch DOM Manipulations
+
+When working with the DOM, you want to avoid causing the browser to unnecessarily "[reflow](https://developers.google.com/speed/articles/reflow)" or re-layout all the elements on the page for every change you make. What you want to do is batch all your DOM changes together, so you can make one large change as opposed to many small changes. When you cause the browser to constantly re-layout the page with many small changes, this is commonly called [layout thrashing](http://kellegous.com/j/2013/01/26/layout-performance/).
+
+Here's a [gist](https://gist.github.com/paulirish/5d52fb081b3570c81e3a) that lists many of the DOM methods and properties that can trigger a reflow. The browser will try to be "lazy" and put off reflow as long as it can, but some things (like asking for an element's `offsetLeft`) necessitate a reflow.
+
+There are a number of ways you can batch your changes and avoid layout thrashing. Unfortunately, p5.Element and the p5.dom addon do not currently give you a lot of room for batching. For instance, creating a p5.element will cause layout thrashing (via `offsetWidth` and `offsetHeight`).
+
+If you are running into DOM performance issues, your best approach is likely to take control and go with plain JavaScript or use a DOM manipulation library (e.g. [fastdom](https://github.com/wilsonpage/fastdom)). See [code/reflow-dom-manipulation](code/reflow-dom-manipulation/) for a performance test of DOM manipulation in p5 vs native JS. In that case, native JS that avoids reflow is **~400x** times faster.
+
+Before rewriting your code, make sure that layout thrashing is the problem! The [timeline tool](https://developers.google.com/web/tools/chrome-devtools/profile/evaluate-performance/timeline-tool?utm_source=dcc&utm_medium=redirect&utm_campaign=2016q3) in Chrome is a good place to start, since it can show you how much time is spent rendering and will note code that is causing a forced reflow.
+
+#### Minimize Searching
+
+Searching for elements in the DOM can be costly - especially if you are doing the searching during `draw()`. Minimize DOM lookups by storing references to your elements in `setup()`.  For example, if you have a button that you are constantly repositioning so that it runs away from the mouse cursor:
+
+```js
+var button;
+
+function setup () {
+  button = select("#runner");
+}
+
+function draw() {
+  var x, y;
+  // Do some stuff to figure out where to move the button
+  button.position(x, y);
+}
+```
+
+See [code/cache-dom-lookups](code/cache-dom-lookups/) for a performance test.
+
+### Math Tips
 
 -   When you need to compare distances between points or magnitudes of vectors, try using distance squared or magnitude squared ([p5.Vector.magSq](http://p5js.org/reference/#/p5.Vector/magSq)). See [code/distance-squared](code/distance-squared/) for a performance test.
 
