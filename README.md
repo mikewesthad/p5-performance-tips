@@ -190,7 +190,9 @@ There are a number of ways you can batch your changes and avoid layout thrashing
 
 If you are running into DOM performance issues, your best approach is likely to take control and go with plain JavaScript or use a DOM manipulation library (e.g. [fastdom](https://github.com/wilsonpage/fastdom)). See [code/reflow-dom-manipulation](code/reflow-dom-manipulation/) for a performance test of DOM manipulation in p5 vs native JS. In that case, native JS that avoids reflow is **~400x** times faster.
 
-Before rewriting your code, make sure that layout thrashing is the problem! The [timeline tool](https://developers.google.com/web/tools/chrome-devtools/profile/evaluate-performance/timeline-tool?utm_source=dcc&utm_medium=redirect&utm_campaign=2016q3) in Chrome is a good place to start, since it can show you how much time is spent rendering and will note code that is causing a forced reflow.
+Before rewriting your code, make sure that layout thrashing is the problem! The [timeline tool](https://developers.google.com/web/tools/chrome-devtools/profile/evaluate-performance/timeline-tool?utm_source=dcc&utm_medium=redirect&utm_campaign=2016q3) in Chrome is a good place to start. It will highlight code that is likely causing a forced reflow, and it can show you how much time is spent rendering the page vs running the JS:
+
+![](/images/timeline.png)
 
 #### Minimize Searching
 
