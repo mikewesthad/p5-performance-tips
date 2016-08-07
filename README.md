@@ -172,9 +172,27 @@ The speed boost you will get depends on the specific p5 methods you are using. I
 
 ### Image Processing
 
-**TODO: Section on sampling or resizing images**
+#### Sampling/Resizing
 
-### Caching
+When looping through the pixels in an image, you can get an easy performance boost by simply reducing the size of your image or by sampling it. If you have an 1000 x 1000 image that you are working with, you are iterating through 1000000 pixels.  If you chop that image in half to 500 x 500 (250000 pixels), you now only need to do 1/4th of the iterations you were doing previously. That's a pretty major savings.
+
+You have a number of options when it comes to resizing/sampling:
+
+1.  Resize the image before runtime using Photoshop, GIMP, etc. This will likely yield the best quality shrunken image because you can control the resizing algorithm and apply filters to sharpen the image.
+2.  Resize the image using p5.Image's [resize](http://p5js.org/reference/#/p5.Image/resize) method. Here, you are at the whim of the browser for how it handles downsampling interpolation. (Well, you have some not-fully supported [control](https://developer.mozilla.org/en-US/docs/Web/CSS/image-rendering).)
+3.  Sample the image by only using every 2nd (or 3rd or 4th, etc.) pixel.  Dead simple and effective, but you can potentially lose thin details in the image if you skip a lot of pixels.
+
+See [code/resizing-images](code/resizing-images/) for an application of each method. Practically speaking, these appear to have roughly same performance. (Sampling may be _slightly_ slower than the other approaches.) Here's a 1200 x 800 image of a blackberry ([source](https://www.flickr.com/photos/lodefink/958569742/)) resized to 120 x 80 with the three methods:
+
+![](/images/resizing-comparison.png)
+
+If you can, resizing the image beforehand gives you the most control over the final visuals. If you can't (e.g. processing frames of a video), sampling or resizing should serve you well.
+
+One last note! If you are doing drastic resizing of an image or you have an image with important fine details (e.g. vector art, line drawing, detailed patterns, etc.), sampling or resizing can give pretty poor results. Here's a 1900 x 1900 floral pattern ([source](http://www.publicdomainpictures.net/pictures/60000/velka/vintage-floral-wallpaper-pattern.jpg#.V6ejBINAuqk.link)) resized to 100 x 100:
+
+![](/images/drastic-resizing-comparison.png)
+
+That last method - iterative resizing - can also be found in [code/resizing-images](code/resizing-images/). The approach - taken from this [stack overflow answer](http://stackoverflow.com/a/19262385) - is to resize the image in steps. This is helpful when you can't resize an image ahead of time, and the regular resizing approach is dropping important details.
 
 ### DOM Manipulation
 
@@ -188,7 +206,7 @@ Here's a [gist](https://gist.github.com/paulirish/5d52fb081b3570c81e3a) that lis
 
 There are a number of ways you can batch your changes and avoid layout thrashing. Unfortunately, p5.Element and the p5.dom addon do not currently give you a lot of room for batching. For instance, creating a p5.element will cause layout thrashing (via `offsetWidth` and `offsetHeight`).
 
-If you are running into DOM performance issues, your best approach is likely to take control and go with plain JavaScript or use a DOM manipulation library (e.g. [fastdom](https://github.com/wilsonpage/fastdom)). See [code/reflow-dom-manipulation](code/reflow-dom-manipulation/) for a performance test of DOM manipulation in p5 vs native JS. In that case, native JS that avoids reflow is **~400x** times faster.
+If you are running into DOM performance issues, your best approach is likely to take control and go with plain JavaScript or use a DOM manipulation library (e.g. [fastdom](https://github.com/wilsonpage/fastdom)). See [code/reflow-dom-manipulation](code/reflow-dom-manipulation/) for a performance test of DOM manipulation in p5 vs native JS. In that case, native JS that avoids reflow is **~400x - 500x** times faster.
 
 Before rewriting your code, make sure that layout thrashing is the problem! The [timeline tool](https://developers.google.com/web/tools/chrome-devtools/profile/evaluate-performance/timeline-tool?utm_source=dcc&utm_medium=redirect&utm_campaign=2016q3) in Chrome is a good place to start. It will highlight code that is likely causing a forced reflow, and it can show you how much time is spent rendering the page vs running the JS:
 
@@ -212,7 +230,7 @@ function draw() {
 }
 ```
 
-See [code/cache-dom-lookups](code/cache-dom-lookups/) for a performance test.
+See [code/cache-dom-lookups](code/cache-dom-lookups/) for a performance test. In the test, caching the element was ~10x faster than constantly re-searching for the element. The performance boost will vary depending on the depth of your DOM tree and the complexity of your selector.
 
 ### Math Tips
 
