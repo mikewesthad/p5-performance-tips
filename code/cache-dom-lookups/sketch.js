@@ -1,9 +1,9 @@
 // Results in Chrome:
 // 
-//  Cached button took:     423.59ms.
-//  Non-cached button took: 9887.02ms.
+//  Cached button took:     573.42ms.
+//  Non-cached button took: 5925.31ms.
 
-p5.disableFriendlyErrors = false;
+p5.disableFriendlyErrors = true;
 
 var iterations = 100000;
 

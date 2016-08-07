@@ -1,12 +1,12 @@
 // Results in Chrome:
 // 
-//  Creating divs in native JS took:  1.05ms.
-//  Creating divs in p5 took:         411.63ms.
+//  Creating divs in native JS took:  1.19ms.
+//  Creating divs in p5 took:         479.57ms.
 //  
 // Note: tests are in functions so that the timeline in Chrome dev tools can
 // provide useful debugging information. 
 
-p5.disableFriendlyErrors = false;
+p5.disableFriendlyErrors = true;
 
 var iterations = 1000;
 

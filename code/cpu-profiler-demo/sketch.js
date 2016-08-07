@@ -1,4 +1,4 @@
-p5.disableFriendlyErrors = false;
+p5.disableFriendlyErrors = true;
 
 var capture;
 var videoWidth = null;
