@@ -183,7 +183,7 @@ You have a number of options when it comes to resizing/sampling:
 2.  Resize the image using p5.Image's [resize](http://p5js.org/reference/#/p5.Image/resize) method. Here, you are at the whim of the browser for how it handles downsampling interpolation. (Well, you have some not-fully supported [control](https://developer.mozilla.org/en-US/docs/Web/CSS/image-rendering).)
 3.  Sample the image by only using every 2nd (or 3rd or 4th, etc.) pixel.  Dead simple and effective, but you can potentially lose thin details in the image if you skip a lot of pixels.
 
-See [code/resizing-images](code/resizing-images/) for an application of each method. Practically speaking, these appear to have roughly same performance. (Sampling may be _slightly_ slower than the other approaches.) Here's a 1200 x 800 image of a blackberry ([source](https://www.flickr.com/photos/lodefink/958569742/)) resized to 120 x 80 with the three methods:
+See [code/resizing-images](code/resizing-images/) for an application of each method. Practically speaking, these appear to have roughly same performance.  Here's a 1200 x 800 image of a blackberry ([source](https://www.flickr.com/photos/lodefink/958569742/)) resized to 120 x 80 with the three methods:
 
 ![](/images/resizing-comparison.png)
 
