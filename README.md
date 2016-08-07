@@ -15,6 +15,7 @@ Note: this is a work-in-progress wiki for [p5.js](https://github.com/processing/
 	3. [Use Native JS in Bottlenecks](#use-native-js-in-bottlenecks)
 	4. [Image Processing](#image-processing)
 		1. [Sampling/Resizing](#samplingresizing)
+		2. [Frontload Image Processing](#frontload-image-processing)
 	5. [DOM Manipulation](#dom-manipulation)
 		1. [Batch DOM Manipulations](#batch-dom-manipulations)
 		2. [Minimize Searching](#minimize-searching)
@@ -194,6 +195,12 @@ One last note! If you are doing drastic resizing of an image or you have an imag
 ![](/images/drastic-resizing-comparison.png)
 
 That last method - iterative resizing - can also be found in [code/resizing-images](code/resizing-images/). The approach - taken from this [stack overflow answer](http://stackoverflow.com/a/19262385) - is to resize the image in steps. This is helpful when you can't resize an image ahead of time, and the regular resizing approach is dropping important details.
+
+#### Frontload Image Processing
+
+If you can, it's best to frontload image processing. Do as much as you can during `setup()`, so that your `draw()` loop can be as fast as possible. This will help prevent the interactive parts of your sketch from becoming sluggish.
+
+For example, if you need color information from an image for a p5 sketch, extract & store the [p5.Color](http://p5js.org/reference/#/p5/color) objects during `setup()`. Then in `draw()`, you can look up the cached colors information when you need it, as opposed to recalculating it on the fly.  
 
 ### DOM Manipulation
 
