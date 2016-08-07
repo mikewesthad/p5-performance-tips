@@ -2,22 +2,23 @@
 
 Note: this is a work-in-progress wiki for [p5.js](https://github.com/processing/p5.js) on performance.
 
-**TODO: Add some intro here**
-
 <!-- TOC depthFrom:2 depthTo:6 withLinks:1 updateOnSave:1 orderedList:1 -->
 
-1.  [Words of Caution!](#words-of-caution)
-2.  [Identifying Slow Code: Profiling](#identifying-slow-code-profiling)
-    1.  [Frames Per Second (FPS)](#frames-per-second-fps)
-    2.  [Manual Profiling](#manual-profiling)
-    3.  [Automated Profiling](#automated-profiling)
-3.  [p5 Performance Tips](#p5-performance-tips)
-    1.  [Disable the Friendly Error System](#disable-the-friendly-error-system)
-    2.  [Switch Platforms](#switch-platforms)
-    3.  [Use Native JS in Bottlenecks](#use-native-js-in-bottlenecks)
-    4.  [Image Processing](#image-processing)
-    5.  [Caching](#caching)
-    6.  [Math Shortcuts](#math-shortcuts)
+1. [Words of Caution!](#words-of-caution)
+2. [Identifying Slow Code: Profiling](#identifying-slow-code-profiling)
+	1. [Frames Per Second (FPS)](#frames-per-second-fps)
+	2. [Manual Profiling](#manual-profiling)
+	3. [Automated Profiling](#automated-profiling)
+3. [p5 Performance Tips](#p5-performance-tips)
+	1. [Disable the Friendly Error System](#disable-the-friendly-error-system)
+	2. [Switch Platforms](#switch-platforms)
+	3. [Use Native JS in Bottlenecks](#use-native-js-in-bottlenecks)
+	4. [Image Processing](#image-processing)
+		1. [Sampling/Resizing](#samplingresizing)
+	5. [DOM Manipulation](#dom-manipulation)
+		1. [Batch DOM Manipulations](#batch-dom-manipulations)
+		2. [Minimize Searching](#minimize-searching)
+	6. [Math Tips](#math-tips)
 
 <!-- /TOC -->
 
