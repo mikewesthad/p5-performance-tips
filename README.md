@@ -27,7 +27,7 @@ Note: this is a work-in-progress wiki for [p5.js](https://github.com/processing/
 
 When it comes to performance, it's tempting to try to squeeze out as much speed as you can right from the get-go. Writing code is a balancing act between trying to write something that is easy to read & maintain and something that gets the job done. Performance optimizations often come with some sacrifices, so in general, you should only worry about optimizing when you know there is a speed problem.
 
-Along with that, it's important to keep in mind a general mantra of "optimize the algorithm, not the code." Sometimes, you will get nice gains from micro-optimizing a line of code or two. But generally speaking, the big gains you get tend to come from changing your approach. E.g. if you have code that loops through every single pixel in an image, you will certainly speed up your code if you decide that you can instead just look through every other pixel.
+Along with that, it's important to keep in mind a general mantra of "optimize the algorithm, not the code." Sometimes, you will get nice gains from micro-optimizing a line of code or two. But generally speaking, the biggest gains you get tend to come from changing your approach. E.g. if you have code that loops through every single pixel in an image, you will certainly speed up your code if you decide that you can instead just look through every other pixel.
 
 ## Identifying Slow Code: Profiling
 
@@ -35,7 +35,7 @@ The first step in speeding up code is usually to [profile](https://en.wikipedia.
 
 ### Frames Per Second (FPS)
 
-One general measure of your program's speed is the number of frames per second (FPS) is can run. You generally want to aim for a consistent 30 - 60 FPS if your code involves interaction or animation.
+One general measure of your program's speed is the number of frames per second (FPS) it can render. You generally want to aim for a consistent 30 - 60 FPS if your code involves interaction or animation. (Here's a [demo](http://www.testufo.com/#test=framerates&count=3&background=none&pps=720) showing what 60, 30 and 15 FPS look like.)
 
 You can see your current FPS easily in one of two ways.
 
@@ -61,7 +61,7 @@ In the p5 Editor:
 
 ### Manual Profiling
 
-To find out how long a piece of code takes to run, you want to know the what time it is when the code starts running and what time it is right after the code ends. In p5, you can get the current time in milliseconds using [`millis()`](http://p5js.org/reference/#/p5/millis). (Under the hood, this function just returns the result of a native JS method: [`performance.now()`](https://developer.mozilla.org/en-US/docs/Web/API/Performance/now).)
+To find out how long a piece of code takes to run, you want to know the time when the code starts running and the time when it finishes running. In p5, you can get the current time in milliseconds using [`millis()`](http://p5js.org/reference/#/p5/millis). (Under the hood, this function just returns the result of a native JS method: [`performance.now()`](https://developer.mozilla.org/en-US/docs/Web/API/Performance/now).)
 
 To time a particular piece of code using `millis()`:
 
@@ -114,7 +114,7 @@ See the [CPU profiler documentation](https://developers.google.com/web/tools/chr
 
 ### Disable the Friendly Error System
 
-When you use the non-minified p5.js file (as opposed to p5.min.js), there is a friendly error system that will warn you when you try to override a p5 method, e.g. if you try to do `random = 5;` or `max = 3;`. This error checking system can significantly slow down your code (up to ~10x in some cases). See the [friendly error performance test](code/friendly-error-system/).
+When you use the non-minified p5.js file (as opposed to p5.min.js), there is a friendly error system that will warn you when you try to override a p5 method, e.g. if you try to do `random = 5` or `max = 3`. This error checking system can significantly slow down your code (up to ~10x in some cases). See the [friendly error performance test](code/friendly-error-system/).
 
 If you are running p5.js version 0.5.3 or greater, you can disable this with one line of code at the top of your sketch:
 
@@ -181,7 +181,7 @@ When looping through the pixels in an image, you can get an easy performance boo
 You have a number of options when it comes to resizing/sampling:
 
 1.  Resize the image before runtime using Photoshop, GIMP, etc. This will likely yield the best quality shrunken image because you can control the resizing algorithm and apply filters to sharpen the image.
-2.  Resize the image using p5.Image's [resize](http://p5js.org/reference/#/p5.Image/resize) method. Here, you are at the whim of the browser for how it handles downsampling interpolation. (Well, you have some not-fully supported [control](https://developer.mozilla.org/en-US/docs/Web/CSS/image-rendering).)
+2.  Resize the image using p5.Image's [resize](http://p5js.org/reference/#/p5.Image/resize) method. Here, you are at the whim of the browser for how it handles downsampling interpolation. (Well, you do have some not quite fully supported [control](https://developer.mozilla.org/en-US/docs/Web/CSS/image-rendering)...)
 3.  Sample the image by only using every 2nd (or 3rd or 4th, etc.) pixel.  Dead simple and effective, but you can potentially lose thin details in the image if you skip a lot of pixels.
 
 See [code/resizing-images](code/resizing-images/) for an application of each method. Practically speaking, these appear to have roughly same performance.  Here's a 1200 x 800 image of a blackberry ([source](https://www.flickr.com/photos/lodefink/958569742/)) resized to 120 x 80 with the three methods:
@@ -200,7 +200,7 @@ That last method - iterative resizing - can also be found in [code/resizing-imag
 
 If you can, it's best to frontload image processing. Do as much as you can during `setup()`, so that your `draw()` loop can be as fast as possible. This will help prevent the interactive parts of your sketch from becoming sluggish.
 
-For example, if you need color information from an image for a p5 sketch, extract & store the [p5.Color](http://p5js.org/reference/#/p5/color) objects during `setup()`. Then in `draw()`, you can look up the cached colors information when you need it, as opposed to recalculating it on the fly.  
+For example, if you need color information from an image for a p5 sketch, extract & store the [p5.Color](http://p5js.org/reference/#/p5/color) objects during `setup()`. Then in `draw()`, you can look up the cached color information when you need it, as opposed to recalculating it on the fly.  
 
 ### DOM Manipulation
 
@@ -228,6 +228,7 @@ Searching for elements in the DOM can be costly - especially if you are doing th
 var button;
 
 function setup () {
+  // Store a reference to the element in setup
   button = select("#runner");
 }
 
