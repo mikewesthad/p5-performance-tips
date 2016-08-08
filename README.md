@@ -53,11 +53,11 @@ With Chrome or the p5 editor, you can open up the developer tools and turn on th
 
 In Chrome, open the developer tools (Windows hotkey: `Ctrl + Shift + I` or `F12`, Mac hotkey:  `Cmd + Opt + I`) and then follow these instructions:
 
-![Enabling FPS Meter in Chrome](images/chrome-show-fps.gif)
+![Enabling FPS Meter in Chrome](https://github.com/mikewesthad/p5-performance-tips/blob/master/images/chrome-show-fps.gif)
 
 In the p5 Editor:
 
-![Enabling FPS Meter in p5 Editor](images/editor-show-fps.gif)
+![Enabling FPS Meter in p5 Editor](https://github.com/mikewesthad/p5-performance-tips/blob/master/images/editor-show-fps.gif)
 
 ### Manual Profiling
 
@@ -86,7 +86,7 @@ Again, the developer tools in Chrome and the p5 editor come to the rescue with s
 
 When you want to profile your code, open the developer tools (hamburger icon in the p5 editor). Go to the "Profiles" tab, select "Collect JavaScript CPU Profile" and hit start. This will start timing your code. When you've recorded a large  enough sample, stop the recording and take a look at the results:
 
-![Chrome CPU Profiler](images/chrome-cpu-profile.jpg)
+![Chrome CPU Profiler](https://github.com/mikewesthad/p5-performance-tips/blob/master/images/chrome-cpu-profile.jpg)
 
 It's helpful to look at the CPU profiler results for some real code. The recording for this section is a p5 sketch that gets an image from the webcam, sorts the pixels by hue and then draws them to the screen (see [code/cpu-profiler-demo](code/cpu-profiler-demo/)). There are  four main functions:
 
@@ -101,7 +101,7 @@ From the total times, we can see that roughly equal amounts of time were spent i
 
 If you switch the view of the recording from "Heavy (Bottom Up)" to "Chart," you can get a better sense of the breakdown and interactively explore the recording:
 
-![Chrome CPU Profiler](images/chrome-cpu-flame.gif)
+![Chrome CPU Profiler](https://github.com/mikewesthad/p5-performance-tips/blob/master/images/chrome-cpu-flame.gif)
 
 Given that the CPU profiler is simply going to show you a table that has function names, it is important for the functions in your code to actually have names. So you should:
 
@@ -186,13 +186,13 @@ You have a number of options when it comes to resizing/sampling:
 
 See [code/resizing-images](code/resizing-images/) for an application of each method. Practically speaking, these appear to have roughly same performance.  Here's a 1200 x 800 image of a blackberry ([source](https://www.flickr.com/photos/lodefink/958569742/)) resized to 120 x 80 with the three methods:
 
-![](/images/resizing-comparison.png)
+![](https://github.com/mikewesthad/p5-performance-tips/blob/master/images//resizing-comparison.png)
 
 If you can, resizing the image beforehand gives you the most control over the final visuals. If you can't (e.g. processing frames of a video), sampling or resizing should serve you well.
 
 One last note! If you are doing drastic resizing of an image or you have an image with important fine details (e.g. vector art, line drawing, detailed patterns, etc.), sampling or resizing can give pretty poor results. Here's a 1900 x 1900 floral pattern ([source](http://www.publicdomainpictures.net/pictures/60000/velka/vintage-floral-wallpaper-pattern.jpg#.V6ejBINAuqk.link)) resized to 100 x 100:
 
-![](/images/drastic-resizing-comparison.png)
+![](https://github.com/mikewesthad/p5-performance-tips/blob/master/images//drastic-resizing-comparison.png)
 
 That last method - iterative resizing - can also be found in [code/resizing-images](code/resizing-images/). The approach - taken from this [stack overflow answer](http://stackoverflow.com/a/19262385) - is to resize the image in steps. This is helpful when you can't resize an image ahead of time, and the regular resizing approach is dropping important details.
 
@@ -218,7 +218,7 @@ If you are running into DOM performance issues, your best approach is likely to 
 
 Before rewriting your code, make sure that layout thrashing is the problem! The [timeline tool](https://developers.google.com/web/tools/chrome-devtools/profile/evaluate-performance/timeline-tool?utm_source=dcc&utm_medium=redirect&utm_campaign=2016q3) in Chrome is a good place to start. It will highlight code that is likely causing a forced reflow, and it can show you how much time is spent rendering the page vs running the JS:
 
-![](/images/timeline.png)
+![](https://github.com/mikewesthad/p5-performance-tips/blob/master/images//timeline.png)
 
 #### Minimize Searching
 
