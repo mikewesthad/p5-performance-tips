@@ -186,13 +186,13 @@ You have a number of options when it comes to resizing/sampling:
 
 See [code/resizing-images](code/resizing-images/) for an application of each method. Practically speaking, these appear to have roughly same performance.  Here's a 1200 x 800 image of a blackberry ([source](https://www.flickr.com/photos/lodefink/958569742/)) resized to 120 x 80 with the three methods:
 
-![](https://github.com/mikewesthad/p5-performance-tips/blob/master/images//resizing-comparison.png)
+![](https://github.com/mikewesthad/p5-performance-tips/blob/master/images/resizing-comparison.png)
 
 If you can, resizing the image beforehand gives you the most control over the final visuals. If you can't (e.g. processing frames of a video), sampling or resizing should serve you well.
 
 One last note! If you are doing drastic resizing of an image or you have an image with important fine details (e.g. vector art, line drawing, detailed patterns, etc.), sampling or resizing can give pretty poor results. Here's a 1900 x 1900 floral pattern ([source](http://www.publicdomainpictures.net/pictures/60000/velka/vintage-floral-wallpaper-pattern.jpg#.V6ejBINAuqk.link)) resized to 100 x 100:
 
-![](https://github.com/mikewesthad/p5-performance-tips/blob/master/images//drastic-resizing-comparison.png)
+![](https://github.com/mikewesthad/p5-performance-tips/blob/master/images/drastic-resizing-comparison.png)
 
 That last method - iterative resizing - can also be found in [code/resizing-images](code/resizing-images/). The approach - taken from this [stack overflow answer](http://stackoverflow.com/a/19262385) - is to resize the image in steps. This is helpful when you can't resize an image ahead of time, and the regular resizing approach is dropping important details.
 
@@ -218,7 +218,7 @@ If you are running into DOM performance issues, your best approach is likely to 
 
 Before rewriting your code, make sure that layout thrashing is the problem! The [timeline tool](https://developers.google.com/web/tools/chrome-devtools/profile/evaluate-performance/timeline-tool?utm_source=dcc&utm_medium=redirect&utm_campaign=2016q3) in Chrome is a good place to start. It will highlight code that is likely causing a forced reflow, and it can show you how much time is spent rendering the page vs running the JS:
 
-![](https://github.com/mikewesthad/p5-performance-tips/blob/master/images//timeline.png)
+![](https://github.com/mikewesthad/p5-performance-tips/blob/master/images/timeline.png)
 
 #### Minimize Searching
 
