@@ -76,7 +76,7 @@ var elapsed = end - start;
 console.log("This took: " + elapsed + "ms.")
 ```
 
-Usually, you will want to run the code you are trying to profile many times and then find the average time that it took to run. See any of the performance tests in [code/](code/) for examples.
+Usually, you will want to run the code you are trying to profile many times and then find the average time that it took to run. See any of the performance tests in [code/](https://github.com/mikewesthad/p5-performance-tips/blob/master/code/) for examples.
 
 Note: `console.log()` and `println()` will definitely slow down your code, so be sure to remove them from the final version of your project!
 
@@ -88,7 +88,7 @@ When you want to profile your code, open the developer tools (hamburger icon in 
 
 ![Chrome CPU Profiler](https://github.com/mikewesthad/p5-performance-tips/blob/master/images/chrome-cpu-profile.jpg)
 
-It's helpful to look at the CPU profiler results for some real code. The recording for this section is a p5 sketch that gets an image from the webcam, sorts the pixels by hue and then draws them to the screen (see [code/cpu-profiler-demo](code/cpu-profiler-demo/)). There are  four main functions:
+It's helpful to look at the CPU profiler results for some real code. The recording for this section is a p5 sketch that gets an image from the webcam, sorts the pixels by hue and then draws them to the screen (see [code/cpu-profiler-demo](https://github.com/mikewesthad/p5-performance-tips/blob/master/code/cpu-profiler-demo/)). There are  four main functions:
 
 -   `samplePixels` - gets a set of pixels from the camera
 -   `sortPixels` - sorts the sampled pixels
@@ -114,7 +114,7 @@ See the [CPU profiler documentation](https://developers.google.com/web/tools/chr
 
 ### Disable the Friendly Error System
 
-When you use the non-minified p5.js file (as opposed to p5.min.js), there is a friendly error system that will warn you when you try to override a p5 method, e.g. if you try to do `random = 5` or `max = 3`. This error checking system can significantly slow down your code (up to ~10x in some cases). See the [friendly error performance test](code/friendly-error-system/).
+When you use the non-minified p5.js file (as opposed to p5.min.js), there is a friendly error system that will warn you when you try to override a p5 method, e.g. if you try to do `random = 5` or `max = 3`. This error checking system can significantly slow down your code (up to ~10x in some cases). See the [friendly error performance test](https://github.com/mikewesthad/p5-performance-tips/blob/master/code/friendly-error-system/).
 
 If you are running p5.js version 0.5.3 or greater, you can disable this with one line of code at the top of your sketch:
 
@@ -140,7 +140,7 @@ If possible, you can try switching platforms. As of p5.js v0.5.2 and p5 editor v
 -   Chrome outperforms Firefox, IE & Edge.
 -   Firefox outperforms IE & Edge.
 
-These are generalizations that depend on the specific code you are trying to run and what version of the platform you are using. See the [particle system performance test](code/platforms-test/) for a real example.
+These are generalizations that depend on the specific code you are trying to run and what version of the platform you are using. See the [particle system performance test](https://github.com/mikewesthad/p5-performance-tips/blob/master/code/platforms-test/) for a real example.
 
 ### Use Native JS in Bottlenecks
 
@@ -148,7 +148,7 @@ If you know where your performance bottleneck is in your code, then you can spee
 
 Many of the p5 methods come with an overhead. For example: `sin(...)` needs to check whether p5 is in degree mode or radian mode before it can calculate the sin; `random(...)` needs to check whether you have passed in a max and/or min before calculating a random value. In both of these cases, you can just use `Math.random(...)` or `Math.sin(...)`.
 
-The speed boost you will get depends on the specific p5 methods you are using. In v0.5.3, many methods have been optimized (e.g. `abs`, `sqrt`, `log`), but you can still see a performance boost for using `Math.random`, `Math.sin`, `Math.min` over their p5 counterparts. This is especially true for v0.6.0 of the p5 editor. See the [native vs p5 performance test](code/native-vs-p5/):
+The speed boost you will get depends on the specific p5 methods you are using. In v0.5.3, many methods have been optimized (e.g. `abs`, `sqrt`, `log`), but you can still see a performance boost for using `Math.random`, `Math.sin`, `Math.min` over their p5 counterparts. This is especially true for v0.6.0 of the p5 editor. See the [native vs p5 performance test](https://github.com/mikewesthad/p5-performance-tips/blob/master/code/native-vs-p5/):
 
     Chrome, running methods 10000000x times:
 
@@ -184,7 +184,7 @@ You have a number of options when it comes to resizing/sampling:
 2.  Resize the image using p5.Image's [resize](http://p5js.org/reference/#/p5.Image/resize) method. Here, you are at the whim of the browser for how it handles downsampling interpolation. (Well, you do have some not quite fully supported [control](https://developer.mozilla.org/en-US/docs/Web/CSS/image-rendering)...)
 3.  Sample the image by only using every 2nd (or 3rd or 4th, etc.) pixel.  Dead simple and effective, but you can potentially lose thin details in the image if you skip a lot of pixels.
 
-See [code/resizing-images](code/resizing-images/) for an application of each method. Practically speaking, these appear to have roughly same performance.  Here's a 1200 x 800 image of a blackberry ([source](https://www.flickr.com/photos/lodefink/958569742/)) resized to 120 x 80 with the three methods:
+See [code/resizing-images](https://github.com/mikewesthad/p5-performance-tips/blob/master/code/resizing-images/) for an application of each method. Practically speaking, these appear to have roughly same performance.  Here's a 1200 x 800 image of a blackberry ([source](https://www.flickr.com/photos/lodefink/958569742/)) resized to 120 x 80 with the three methods:
 
 ![](https://github.com/mikewesthad/p5-performance-tips/blob/master/images/resizing-comparison.png)
 
@@ -194,7 +194,7 @@ One last note! If you are doing drastic resizing of an image or you have an imag
 
 ![](https://github.com/mikewesthad/p5-performance-tips/blob/master/images/drastic-resizing-comparison.png)
 
-That last method - iterative resizing - can also be found in [code/resizing-images](code/resizing-images/). The approach - taken from this [stack overflow answer](http://stackoverflow.com/a/19262385) - is to resize the image in steps. This is helpful when you can't resize an image ahead of time, and the regular resizing approach is dropping important details.
+That last method - iterative resizing - can also be found in [code/resizing-images](https://github.com/mikewesthad/p5-performance-tips/blob/master/code/resizing-images/). The approach - taken from this [stack overflow answer](http://stackoverflow.com/a/19262385) - is to resize the image in steps. This is helpful when you can't resize an image ahead of time, and the regular resizing approach is dropping important details.
 
 #### Frontload Image Processing
 
@@ -214,7 +214,7 @@ Here's a [gist](https://gist.github.com/paulirish/5d52fb081b3570c81e3a) that lis
 
 There are a number of ways you can batch your changes and avoid layout thrashing. Unfortunately, p5.Element and the p5.dom addon do not currently give you a lot of room for batching. For instance, creating a p5.element will cause layout thrashing (via `offsetWidth` and `offsetHeight`).
 
-If you are running into DOM performance issues, your best approach is likely to take control and go with plain JavaScript or use a DOM manipulation library (e.g. [fastdom](https://github.com/wilsonpage/fastdom)). See [code/reflow-dom-manipulation](code/reflow-dom-manipulation/) for a performance test of DOM manipulation in p5 vs native JS. In that case, native JS that avoids reflow is **~400x - 500x** times faster.
+If you are running into DOM performance issues, your best approach is likely to take control and go with plain JavaScript or use a DOM manipulation library (e.g. [fastdom](https://github.com/wilsonpage/fastdom)). See [code/reflow-dom-manipulation](https://github.com/mikewesthad/p5-performance-tips/blob/master/code/reflow-dom-manipulation/) for a performance test of DOM manipulation in p5 vs native JS. In that case, native JS that avoids reflow is **~400x - 500x** times faster.
 
 Before rewriting your code, make sure that layout thrashing is the problem! The [timeline tool](https://developers.google.com/web/tools/chrome-devtools/profile/evaluate-performance/timeline-tool?utm_source=dcc&utm_medium=redirect&utm_campaign=2016q3) in Chrome is a good place to start. It will highlight code that is likely causing a forced reflow, and it can show you how much time is spent rendering the page vs running the JS:
 
@@ -239,11 +239,11 @@ function draw() {
 }
 ```
 
-See [code/cache-dom-lookups](code/cache-dom-lookups/) for a performance test. In the test, caching the element was ~10x faster than constantly re-searching for the element. The performance boost will vary depending on the depth of your DOM tree and the complexity of your selector.
+See [code/cache-dom-lookups](https://github.com/mikewesthad/p5-performance-tips/blob/master/code/cache-dom-lookups/) for a performance test. In the test, caching the element was ~10x faster than constantly re-searching for the element. The performance boost will vary depending on the depth of your DOM tree and the complexity of your selector.
 
 ### Math Tips
 
--   When you need to compare distances between points or magnitudes of vectors, try using distance squared or magnitude squared ([p5.Vector.magSq](http://p5js.org/reference/#/p5.Vector/magSq)). See [code/distance-squared](code/distance-squared/) for a performance test.
+-   When you need to compare distances between points or magnitudes of vectors, try using distance squared or magnitude squared ([p5.Vector.magSq](http://p5js.org/reference/#/p5.Vector/magSq)). See [code/distance-squared](https://github.com/mikewesthad/p5-performance-tips/blob/master/code/distance-squared/) for a performance test.
 
     ```js
     function distSquared(x1, y1, x2, y2) {
