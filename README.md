@@ -4,22 +4,22 @@ Note: this is a work-in-progress wiki for [p5.js](https://github.com/processing/
 
 <!-- TOC depthFrom:2 depthTo:6 withLinks:1 updateOnSave:1 orderedList:1 -->
 
-1. [Words of Caution!](#words-of-caution)
-2. [Identifying Slow Code: Profiling](#identifying-slow-code-profiling)
-	1. [Frames Per Second (FPS)](#frames-per-second-fps)
-	2. [Manual Profiling](#manual-profiling)
-	3. [Automated Profiling](#automated-profiling)
-3. [p5 Performance Tips](#p5-performance-tips)
-	1. [Disable the Friendly Error System](#disable-the-friendly-error-system)
-	2. [Switch Platforms](#switch-platforms)
-	3. [Use Native JS in Bottlenecks](#use-native-js-in-bottlenecks)
-	4. [Image Processing](#image-processing)
-		1. [Sampling/Resizing](#samplingresizing)
-		2. [Frontload Image Processing](#frontload-image-processing)
-	5. [DOM Manipulation](#dom-manipulation)
-		1. [Batch DOM Manipulations](#batch-dom-manipulations)
-		2. [Minimize Searching](#minimize-searching)
-	6. [Math Tips](#math-tips)
+1.  [Words of Caution!](#words-of-caution)
+2.  [Identifying Slow Code: Profiling](#identifying-slow-code-profiling)
+    1.  [Frames Per Second (FPS)](#frames-per-second-fps)
+    2.  [Manual Profiling](#manual-profiling)
+    3.  [Automated Profiling](#automated-profiling)
+3.  [p5 Performance Tips](#p5-performance-tips)
+    1.  [Disable the Friendly Error System](#disable-the-friendly-error-system)
+    2.  [Switch Platforms](#switch-platforms)
+    3.  [Use Native JS in Bottlenecks](#use-native-js-in-bottlenecks)
+    4.  [Image Processing](#image-processing)
+        1.  [Sampling/Resizing](#samplingresizing)
+        2.  [Frontload Image Processing](#frontload-image-processing)
+    5.  [DOM Manipulation](#dom-manipulation)
+        1.  [Batch DOM Manipulations](#batch-dom-manipulations)
+        2.  [Minimize Searching](#minimize-searching)
+    6.  [Math Tips](#math-tips)
 
 <!-- /TOC -->
 
@@ -111,6 +111,8 @@ Given that the CPU profiler is simply going to show you a table that has functio
 See the [CPU profiler documentation](https://developers.google.com/web/tools/chrome-devtools/profile/rendering-tools/js-execution) for more details.
 
 ## p5 Performance Tips
+
+This tutorial was written using a [build](https://github.com/mikewesthad/p5-performance-tips/blob/master/code/p5) of the p5.js master branch on 7/21/16. This might mean that some of the features or optimizations that are mentioned haven't rolled out in a release on the p5.js website yet. If you want to create your own custom build from the master branch, you can follow the instructions [here](https://github.com/processing/p5.js/wiki/Development#setup).
 
 ### Disable the Friendly Error System
 
