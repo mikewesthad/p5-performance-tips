@@ -1,6 +1,6 @@
 # Optimizing p5.js Code for Performance
 
-Note: this is a work-in-progress wiki for [p5.js](https://github.com/processing/p5.js) on performance.
+Note: this was a work-in-progress wiki for [p5.js](https://github.com/processing/p5.js) on performance. Live version is [here](https://github.com/processing/p5.js/wiki/Optimizing-p5.js-Code-for-Performance),
 
 <!-- TOC depthFrom:2 depthTo:6 withLinks:1 updateOnSave:1 orderedList:1 -->
 
